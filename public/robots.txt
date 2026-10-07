@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://anvar010.github.io/PORTFOLIO/sitemap.xml
+Sitemap: https://anvar010.github.io/portfolio/sitemap.xml
