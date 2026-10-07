@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 
@@ -52,6 +52,8 @@ export const metadata: Metadata = {
     verification: { google: ['rUhBe8DxylxwzJ-pVONxviHJJ7UdOT1VZ5QLJTY3Vec', 'DlLA4jjYCd-vSjsjulhtygSoXsi9YgVOtMRrIDeYI9g'] },
 };
 
+export const viewport: Viewport = { themeColor: '#0a0a0f' };
+
 const personJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -66,6 +68,14 @@ const personJsonLd = {
     sameAs: ['https://linkedin.com/in/anvarshakn', 'https://github.com/anvar010'],
 };
 
+const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Anvarsha KN Portfolio',
+    url: siteUrl,
+    inLanguage: 'en',
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
@@ -73,6 +83,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
                 />
                 {children}
             </body>
