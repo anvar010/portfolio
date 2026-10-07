@@ -49,7 +49,7 @@ export const metadata: Metadata = {
         apple: `${basePath}/apple-touch-icon.png`,
     },
     robots: { index: true, follow: true },
-    verification: { google: 'rUhBe8DxylxwzJ-pVONxviHJJ7UdOT1VZ5QLJTY3Vec' },
+    verification: { google: ['rUhBe8DxylxwzJ-pVONxviHJJ7UdOT1VZ5QLJTY3Vec', 'DlLA4jjYCd-vSjsjulhtygSoXsi9YgVOtMRrIDeYI9g'] },
 };
 
 const personJsonLd = {
