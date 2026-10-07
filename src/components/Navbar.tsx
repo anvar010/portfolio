@@ -1,4 +1,7 @@
+'use client';
+
 import { useState, useEffect } from 'react';
+import { scrollToId } from '../lib/smoothScroll';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -24,13 +27,10 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const handleNavClick = (e, sectionId) => {
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
         e.preventDefault();
         setMenuOpen(false);
-        const el = document.getElementById(sectionId);
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollToId(sectionId);
     };
 
     const navItems = [
@@ -62,7 +62,7 @@ const Navbar = () => {
                     ))}
                     <li>
                         <a
-                            href="/assets/Anvarsha K N.pdf"
+                            href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/assets/anvarsha-kn-cv.pdf`}
                             download="Anvarsha_KN_CV.pdf"
                             className="btn-primary"
                             style={{ padding: '8px 20px', fontSize: '0.85rem', marginLeft: '10px' }}

@@ -1,8 +1,10 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { MailIcon, PhoneIcon, LinkedinIcon, GithubIcon, LocationIcon, RocketIcon } from './Icons';
 
 const Contact = () => {
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement>(null);
     const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
     const [sending, setSending] = useState(false);
     const [status, setStatus] = useState(''); // 'success', 'error', ''
@@ -25,7 +27,7 @@ const Contact = () => {
         return () => observer.disconnect();
     }, []);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSending(true);
         setStatus('');
@@ -60,7 +62,7 @@ const Contact = () => {
         setTimeout(() => setStatus(''), 5000);
     };
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 

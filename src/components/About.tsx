@@ -1,7 +1,9 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 
 const About = () => {
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -26,7 +28,7 @@ const About = () => {
             <div className="container">
                 <div className="section-header reveal">
                     <span className="section-label">About Me</span>
-                    <h2 className="section-title">Passionate Developer &amp; Problem Solver</h2>
+                    <h2 className="section-title">About Anvarsha KN, MERN Stack Developer</h2>
                     <p className="section-subtitle">
                         Turning ideas into elegant, functional web experiences
                     </p>

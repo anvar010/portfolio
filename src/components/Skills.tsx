@@ -1,8 +1,10 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
-import { LayoutIcon, ServerIcon, WrenchIcon, ChartIcon } from './Icons';
+import { skillCategories } from '../data/skills';
 
 const Skills = () => {
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -21,33 +23,6 @@ const Skills = () => {
         if (sectionRef.current) observer.observe(sectionRef.current);
         return () => observer.disconnect();
     }, []);
-
-    const skillCategories = [
-        {
-            title: 'Frontend Development',
-            icon: <LayoutIcon size={24} />,
-            iconBg: 'rgba(108, 92, 231, 0.15)',
-            skills: ['React.js', 'React Native', 'JavaScript', 'HTML5', 'CSS3', 'Bootstrap', 'Tailwind CSS'],
-        },
-        {
-            title: 'Backend Development',
-            icon: <ServerIcon size={24} />,
-            iconBg: 'rgba(0, 206, 201, 0.15)',
-            skills: ['Node.js', 'Express.js', 'REST APIs', 'MongoDB', 'MySQL', 'PHP'],
-        },
-        {
-            title: 'Tools & Platforms',
-            icon: <WrenchIcon size={24} />,
-            iconBg: 'rgba(253, 121, 168, 0.15)',
-            skills: ['Git', 'GitHub', 'VS Code', 'XAMP', 'WordPress', 'Postman'],
-        },
-        {
-            title: 'Digital Marketing',
-            icon: <ChartIcon size={24} />,
-            iconBg: 'rgba(0, 184, 148, 0.15)',
-            skills: ['SEO', 'SEM', 'Social Media', 'Email Campaigns', 'Content Strategy', 'Paid Advertising'],
-        },
-    ];
 
     return (
         <section className="section" id="skills" ref={sectionRef}>
@@ -70,11 +45,11 @@ const Skills = () => {
     );
 };
 
-const SkillCard = ({ category }) => {
-    const cardRef = useRef(null);
-    const [style, setStyle] = useState({});
+const SkillCard = ({ category }: { category: { title: string; icon: React.ReactNode; iconBg: string; skills: string[] } }) => {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const [style, setStyle] = useState<React.CSSProperties & Record<string, string>>({});
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!cardRef.current) return;
         const { left, top, width, height } = cardRef.current.getBoundingClientRect();
         const x = (e.clientX - left - width / 2) / 25;
@@ -122,7 +97,7 @@ const SkillCard = ({ category }) => {
                     height: '100%',
                     background: `radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255,255,255,0.1), transparent 60%)`,
                     pointerEvents: 'none',
-                    zIndex: 2,
+                    zIndex: 10,
                     opacity: style.transform ? 1 : 0,
                     transition: 'opacity 0.3s',
                     borderRadius: '20px',

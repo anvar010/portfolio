@@ -1,6 +1,10 @@
 node_modules
 dist
 dist-ssr
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
 *.local
 .DS_Store
 .env
@@ -9,3 +13,6 @@ dist-ssr
 .idea
 coverage
 .agent
+.agents
+.claude
+skills-lock.json

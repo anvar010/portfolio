@@ -1,12 +1,15 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 
 const ParticleCanvas = () => {
-    const canvasRef = useRef(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        let animationId;
+        const canvas = canvasRef.current as HTMLCanvasElement;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d')!;
+        let animationId: number;
         let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
         let time = 0;
 
@@ -17,13 +20,13 @@ const ParticleCanvas = () => {
 
         resize();
         window.addEventListener('resize', resize);
-        window.addEventListener('mousemove', (e) => {
+        window.addEventListener('mousemove', (e: MouseEvent) => {
             mouse.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
             mouse.targetY = (e.clientY / window.innerHeight - 0.5) * 2;
         });
 
         // ===== 3D Math Helpers =====
-        const project = (x, y, z, cx, cy) => {
+        const project = (x: number, y: number, z: number, cx: number, cy: number) => {
             const fov = 600;
             const scale = fov / (fov + z);
             return {
@@ -33,13 +36,13 @@ const ParticleCanvas = () => {
             };
         };
 
-        const rotateX = (y, z, angle) => {
+        const rotateX = (y: number, z: number, angle: number) => {
             const cos = Math.cos(angle);
             const sin = Math.sin(angle);
             return { y: y * cos - z * sin, z: y * sin + z * cos };
         };
 
-        const rotateY = (x, z, angle) => {
+        const rotateY = (x: number, z: number, angle: number) => {
             const cos = Math.cos(angle);
             const sin = Math.sin(angle);
             return { x: x * cos - z * sin, z: x * sin + z * cos };
@@ -47,7 +50,13 @@ const ParticleCanvas = () => {
 
         // ===== 3D Sphere Wireframe =====
         class WireframeSphere {
-            constructor(radius, latLines, lonLines) {
+            radius: number;
+            vertices: { x: number; y: number; z: number }[];
+            edges: [number, number][];
+            rotX: number;
+            rotY: number;
+
+            constructor(radius: number, latLines: number, lonLines: number) {
                 this.radius = radius;
                 this.vertices = [];
                 this.edges = [];
@@ -80,7 +89,7 @@ const ParticleCanvas = () => {
                 }
             }
 
-            draw(cx, cy) {
+            draw(cx: number, cy: number) {
                 this.rotX += (mouse.targetY * 0.3 - this.rotX) * 0.02;
                 this.rotY += (mouse.targetX * 0.3 - this.rotY) * 0.02;
 
@@ -123,7 +132,15 @@ const ParticleCanvas = () => {
 
         // ===== Orbiting Ring Particles =====
         class OrbitParticle {
-            constructor(radius, speed, offset, tilt) {
+            radius: number;
+            speed: number;
+            angle: number;
+            tilt: number;
+            size: number;
+            hue: number;
+            brightness: number;
+
+            constructor(radius: number, speed: number, offset: number, tilt: number) {
                 this.radius = radius;
                 this.speed = speed;
                 this.angle = offset;
@@ -137,7 +154,7 @@ const ParticleCanvas = () => {
                 this.angle += this.speed;
             }
 
-            draw(cx, cy) {
+            draw(cx: number, cy: number) {
                 let x = Math.cos(this.angle) * this.radius;
                 let y = Math.sin(this.angle) * this.radius * 0.3;
                 let z = Math.sin(this.angle) * this.radius;
@@ -172,6 +189,12 @@ const ParticleCanvas = () => {
 
         // ===== Background Stars =====
         class Star {
+            x!: number;
+            y!: number;
+            z!: number;
+            prevZ!: number;
+            speed!: number;
+
             constructor() {
                 this.reset();
             }
@@ -190,7 +213,7 @@ const ParticleCanvas = () => {
                 if (this.z < 1) this.reset();
             }
 
-            draw(cx, cy) {
+            draw(cx: number, cy: number) {
                 const p = project(this.x, this.y, this.z, cx, cy);
                 const pp = project(this.x, this.y, this.prevZ, cx, cy);
                 const size = (1 - this.z / 2000) * 1.5;
@@ -212,6 +235,14 @@ const ParticleCanvas = () => {
 
         // ===== Nebula Clouds =====
         class NebulaCloud {
+            x: number;
+            y: number;
+            radius: number;
+            speedX: number;
+            speedY: number;
+            hue: number;
+            opacity: number;
+
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
@@ -246,7 +277,7 @@ const ParticleCanvas = () => {
         // ===== Initialize =====
         const sphere = new WireframeSphere(180, 12, 16);
 
-        const orbitParticles = [];
+        const orbitParticles: OrbitParticle[] = [];
         for (let i = 0; i < 40; i++) {
             orbitParticles.push(
                 new OrbitParticle(
@@ -258,12 +289,12 @@ const ParticleCanvas = () => {
             );
         }
 
-        const stars = [];
+        const stars: Star[] = [];
         for (let i = 0; i < 200; i++) {
             stars.push(new Star());
         }
 
-        const nebulae = [];
+        const nebulae: NebulaCloud[] = [];
         for (let i = 0; i < 5; i++) {
             nebulae.push(new NebulaCloud());
         }

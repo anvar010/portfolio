@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react';
-import ParticleCanvas from './components/ParticleCanvas';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import Education from './components/Education';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import WhatsAppButton from './components/WhatsAppButton';
+'use client';
 
-function App() {
+import { useEffect, useState } from 'react';
+import ParticleCanvas from '../components/ParticleCanvas';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import About from '../components/About';
+import Skills from '../components/Skills';
+import Experience from '../components/Experience';
+import Projects from '../components/Projects';
+import Education from '../components/Education';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
+import WhatsAppButton from '../components/WhatsAppButton';
+import SmoothScroll from '../components/SmoothScroll';
+
+export default function Home() {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
-        const handleMouseMove = (e) => {
+        const handleMouseMove = (e: MouseEvent) => {
             setMousePos({ x: e.clientX, y: e.clientY });
         };
 
@@ -25,6 +28,7 @@ function App() {
 
     return (
         <>
+            <SmoothScroll />
             <ParticleCanvas />
             <div
                 className="cursor-glow"
@@ -49,4 +53,3 @@ function App() {
     );
 }
 
-export default App;

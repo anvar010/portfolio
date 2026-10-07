@@ -1,3 +1,5 @@
+'use client';
+
 import { LinkedinIcon, GithubIcon, MailIcon, PhoneIcon } from './Icons';
 
 const Footer = () => {

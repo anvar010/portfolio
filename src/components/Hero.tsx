@@ -1,5 +1,8 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import SkillsSphere from './SkillsSphere';
+import CodeEditor from './CodeEditor';
+import { scrollToId } from '../lib/smoothScroll';
 import { ChatIcon, RocketIcon } from './Icons';
 
 const Hero = () => {
@@ -28,13 +31,13 @@ const Hero = () => {
                     <h1 className="hero-name">
                         <span className="gradient-text">Anvarsha</span> KN
                     </h1>
-                    <h2 className="hero-title">
+                    <p className="hero-title">
                         {displayText}<span style={{
                             borderRight: '2px solid #00cec9',
                             paddingRight: '2px',
                             animation: 'pulse 1s infinite'
                         }}>|</span>
-                    </h2>
+                    </p>
                     <p className="hero-description">
                         Highly motivated engineering graduate with a passion for innovation and problem solving.
                         Building modern web applications with the MERN Stack — from responsive frontends to robust backend APIs.
@@ -42,13 +45,13 @@ const Hero = () => {
                     <div className="hero-cta">
                         <a href="#contact" className="btn-primary" onClick={(e) => {
                             e.preventDefault();
-                            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                            scrollToId('contact');
                         }}>
                             <ChatIcon size={20} /> Let's Talk
                         </a>
                         <a href="#projects" className="btn-outline" onClick={(e) => {
                             e.preventDefault();
-                            document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                            scrollToId('projects');
                         }}>
                             <RocketIcon size={20} /> View Projects
                         </a>
@@ -70,7 +73,7 @@ const Hero = () => {
                     </div>
                 </div>
                 <div className="hero-visual">
-                    <SkillsSphere />
+                    <CodeEditor />
                 </div>
             </div>
         </section>

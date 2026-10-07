@@ -1,7 +1,9 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 
 const Education = () => {
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(

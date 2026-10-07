@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 
 const WhatsAppButton = () => {
@@ -144,21 +146,21 @@ const WhatsAppButton = () => {
             inset 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        /* Shine effect */
+        /* Shine effect (kept inside the circle) */
         .whatsapp-btn::before {
           content: '';
           position: absolute;
-          top: -50%;
-          left: -75%;
-          width: 50%;
-          height: 200%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-          transform: rotate(25deg);
-          transition: 0.6s;
+          inset: 0;
+          border-radius: 50%;
+          pointer-events: none;
+          background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.35) 50%, transparent 65%);
+          background-size: 250% 100%;
+          background-position: 150% 0;
+          transition: background-position 0.6s;
         }
 
         .whatsapp-btn:hover::before {
-          left: 150%;
+          background-position: -50% 0;
         }
 
         .whatsapp-icon {

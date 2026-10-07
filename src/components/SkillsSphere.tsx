@@ -1,15 +1,18 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 
 const SkillsSphere = () => {
-    const canvasRef = useRef(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        let animationId;
+        const canvas = canvasRef.current as HTMLCanvasElement;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d')!;
+        let animationId: number;
         let time = 0;
         let mouse = { x: 0.5, y: 0.5 };
-        let hoveredSkill = null;
+        let hoveredSkill: number | null = null;
 
         const dpr = window.devicePixelRatio || 1;
         const S = 500;
@@ -24,7 +27,7 @@ const SkillsSphere = () => {
         const cx = S / 2;
         const cy = S / 2;
 
-        canvas.addEventListener('mousemove', (e) => {
+        canvas.addEventListener('mousemove', (e: MouseEvent) => {
             const rect = canvas.getBoundingClientRect();
             mouse.x = (e.clientX - rect.left) / rect.width;
             mouse.y = (e.clientY - rect.top) / rect.height;
@@ -74,7 +77,7 @@ const SkillsSphere = () => {
         ];
 
         // Precompute positions
-        const getPos = (skill, t) => {
+        const getPos = (skill: { angle: number; ring: number }, t: number) => {
             const baseAngle = (skill.angle * Math.PI) / 180;
             const wobble = Math.sin(t * 0.5 + skill.angle * 0.02) * 3;
             const r = ringRadii[skill.ring] + wobble;
@@ -134,7 +137,7 @@ const SkillsSphere = () => {
             }
 
             // ===== Radar sweep =====
-            const sweepGrad = ctx.createConicalGradient
+            const sweepGrad = (ctx as any).createConicalGradient
                 ? null
                 : (() => {
                     // Fallback arc sweep

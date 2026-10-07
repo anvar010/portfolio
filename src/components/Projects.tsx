@@ -1,8 +1,10 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { CartIcon, CarIcon, CameraIcon, GlobeIcon, FilmIcon, ServerIcon, GithubIcon, CodeIcon } from './Icons';
 
 const Projects = () => {
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -88,11 +90,11 @@ const Projects = () => {
     );
 };
 
-const ProjectCard = ({ project }) => {
-    const cardRef = useRef(null);
-    const [style, setStyle] = useState({});
+const ProjectCard = ({ project }: { project: { title: string; desc: string; tags: string[]; gradient: string; icon: React.ReactNode } }) => {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const [style, setStyle] = useState<React.CSSProperties & Record<string, string>>({});
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!cardRef.current) return;
         const { left, top, width, height } = cardRef.current.getBoundingClientRect();
         const x = (e.clientX - left - width / 2) / 25;
@@ -162,7 +164,7 @@ const ProjectCard = ({ project }) => {
                 <h3 className="project-title">{project.title}</h3>
                 <p className="project-desc">{project.desc}</p>
                 <div className="project-links">
-                    <a href="https://github.com/anvar010" target="_blank" rel="noopener noreferrer" className="project-link">
+                    <a href="https://github.com/anvar010" target="_blank" rel="noopener noreferrer" className="project-link" aria-label={`View code for ${project.title} on GitHub`}>
                         <CodeIcon size={18} /> View Code
                     </a>
                 </div>
