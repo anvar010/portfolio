@@ -15,9 +15,9 @@ const spaceGrotesk = Space_Grotesk({
     display: 'swap',
 });
 
-const SITE_ORIGIN = 'https://anvar010.github.io';
+const SITE_ORIGIN = 'https://anvarsha.vercel.app';
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-const siteUrl = `${SITE_ORIGIN}${basePath}/`;
+const siteUrl = `${SITE_ORIGIN}/`;
 const title = 'Anvarsha KN | MERN Stack Developer in Dubai';
 const description =
     'Anvarsha KN is a MERN Stack web developer in Dubai, UAE. Explore projects, skills and experience in MongoDB, Express, React and Node.js development.';
@@ -36,13 +36,13 @@ export const metadata: Metadata = {
         title,
         description,
         locale: 'en_US',
-        images: [{ url: `${basePath}/og-image.png`, width: 1200, height: 630, alt: 'Anvarsha KN, MERN Stack Web Developer' }],
+        images: [{ url: `${SITE_ORIGIN}/og-image.png`, width: 1200, height: 630, alt: 'Anvarsha KN, MERN Stack Web Developer' }],
     },
     twitter: {
         card: 'summary_large_image',
         title,
         description,
-        images: [`${basePath}/og-image.png`],
+        images: [`${SITE_ORIGIN}/og-image.png`],
     },
     icons: {
         icon: [{ url: `${basePath}/favicon.svg`, type: 'image/svg+xml' }],
@@ -57,7 +57,7 @@ const personJsonLd = {
     '@type': 'Person',
     name: 'Anvarsha KN',
     url: siteUrl,
-    image: `${SITE_ORIGIN}${basePath}/og-image.png`,
+    image: `${SITE_ORIGIN}/og-image.png`,
     jobTitle: 'MERN Stack Web Developer',
     description,
     address: { '@type': 'PostalAddress', addressLocality: 'Dubai', addressCountry: 'AE' },
